@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import api from '../../services/api';
 
-import { MusicList, Container, Header, PlaylistCover, DetailHeader, PlaylistName, PlaylistInfo, ContainerDetail, Title } from './styles';
+import { Container, Header, PlaylistCover, DetailHeader, PlaylistName, PlaylistOwner, PlaylistInfo, ContainerDetail, Title, MusicList } from './styles';
 import Music from '../../components/Music';
 
 const DetailPlaylist = ({ route }) => {
@@ -21,6 +21,8 @@ const DetailPlaylist = ({ route }) => {
     getDetailPlaylist();
   }, [id]);
 
+  console.log('milena');
+  console.log(detailPlaylist);
 
   if (loading) {
     return (
@@ -36,15 +38,18 @@ const DetailPlaylist = ({ route }) => {
         resizeMode="cover" />
       <DetailHeader>
         <PlaylistName>{detailPlaylist.name}</PlaylistName>
-        <PlaylistInfo>50 songs</PlaylistInfo>
+        <PlaylistOwner>By {detailPlaylist.owner.display_name}</PlaylistOwner>
+        <PlaylistInfo>{detailPlaylist.tracks.total} songs</PlaylistInfo>
       </DetailHeader>
     </Header>
     <ContainerDetail>
       <Title>Minhas músicas</Title>
 
-      <MusicList data={detailPlaylist.tracks.items} renderItem={({ item }) => (
-        <Music data={item} />
-      )} />
+      <MusicList data={detailPlaylist.tracks.items} renderItem={({ item }) => {
+        return (!!item.track.preview_url && (
+          <Music data={item} />
+        ))
+      }} />
     </ContainerDetail>
   </Container>;
 }

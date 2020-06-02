@@ -46,8 +46,15 @@ export const PlaylistName = styled.Text`
   font-size: 18px;
   margin-bottom: 4px;
 `;
-export const PlaylistInfo = styled.Text`
+
+export const PlaylistOwner = styled.Text`
   color: #fff;
+  font-size: 12px;
+  margin-bottom: 4px;
+`;
+
+export const PlaylistInfo = styled.Text`
+  color: #d0d0d0;
   font-size: 12px;
 `;
 

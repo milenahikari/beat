@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 
-import { Container, Title, Hr, ContainerMusic, PlaylistItem, ContentDescription, ImageMusic, PlaylistName, PlaylistInfo, FlatPlaylist } from './styles';
+import { Container, Title, Hr, ContainerMusic, PlaylistItem, ContentDescription, ImageMusic, PlaylistName, PlaylistOwner, PlaylistInfo, FlatPlaylist } from './styles';
 
 function Playlist() {
   const navigation = useNavigation();
@@ -33,6 +33,7 @@ function Playlist() {
           />
           <ContentDescription>
             <PlaylistName>{item.name}</PlaylistName>
+            <PlaylistOwner>By {item.owner.display_name}</PlaylistOwner>
             <PlaylistInfo>{item.tracks.total} songs</PlaylistInfo>
           </ContentDescription>
         </PlaylistItem>

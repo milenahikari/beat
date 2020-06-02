@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
   width: 100%;
-  height: 200px;
+  height: 280px;
 `;
 export const PlaylistCover = styled.Image`
   flex: 1;
@@ -24,10 +24,15 @@ export const DetailHeader = styled.View`
 `;
 
 export const PlaylistName = styled.Text`
-  font-size: 18px;
+  font-size: 20px;
   color: #fff;
   font-weight: bold;
   margin-bottom: 3px;
+`;
+
+export const PlaylistOwner = styled.Text`
+  font-size: 12px;
+  color: #fff;
 `;
 
 export const PlaylistInfo = styled.Text`

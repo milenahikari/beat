@@ -1,9 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import TrackPlayer from 'react-native-track-player';
+import Icon from 'react-native-vector-icons/Feather';
 
-import { Container, ImageMusic, DetailMusic, Title, Time } from './styles';
+import { Container, ContentIcon, ImageMusic, DetailMusic, Title, Time } from './styles';
 
 const Music = ({ data }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const handlePlay = useCallback(() => {
 
     TrackPlayer.setupPlayer().then(async () => {
@@ -19,13 +22,16 @@ const Music = ({ data }) => {
 
       // Starts playing it
       TrackPlayer.play();
-
+      setIsPlaying(true);
     });
 
   }, []);
 
   return <Container onPress={handlePlay}>
-    <ImageMusic source={{ uri: data.track.album.images[0].url }} />
+    <ContentIcon>
+      <ImageMusic source={{ uri: data.track.album.images[0].url }} />
+      {isPlaying ? (<Icon name="pause" size={20} color="#fff" style={{ position: 'absolute', top: 30, left: 30 }} />) : (<Icon name="play" size={20} color="#fff" style={{ position: 'absolute', top: 30, left: 30 }} />)}
+    </ContentIcon>
     <DetailMusic>
       <Title>{data.track.name}</Title>
       <Time>{data.track.duration_ms}</Time>

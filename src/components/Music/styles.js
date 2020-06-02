@@ -10,6 +10,10 @@ export const Container = styled.TouchableOpacity`
   flex-direction: row;
 `;
 
+export const ContentIcon = styled.View`
+  position: relative;
+`;
+
 export const ImageMusic = styled.Image`
   width: 80px;
   height: 80px;
