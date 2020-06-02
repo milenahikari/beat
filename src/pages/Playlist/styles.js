@@ -19,6 +19,7 @@ export const Hr = styled.View`
   margin-bottom: 15px;
 `;
 
+export const FlatPlaylist = styled.FlatList``;
 
 export const PlaylistItem = styled.TouchableOpacity`
   width: 100%;
@@ -40,12 +41,12 @@ export const ContentDescription = styled.View`
   height: 90%;
 `;
 
-export const NameMusic = styled.Text`
+export const PlaylistName = styled.Text`
   color: #fff;
   font-size: 18px;
   margin-bottom: 4px;
 `;
-export const InfoMusic = styled.Text`
+export const PlaylistInfo = styled.Text`
   color: #fff;
   font-size: 12px;
 `;
