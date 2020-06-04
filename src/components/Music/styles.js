@@ -25,6 +25,7 @@ export const DetailMusic = styled.View`
 
 export const Title = styled.Text`
   font-size: 18px;
+  width: 200px;
   color: #fff;
 `;
 

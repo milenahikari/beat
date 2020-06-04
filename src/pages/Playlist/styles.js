@@ -42,6 +42,7 @@ export const ContentDescription = styled.View`
 `;
 
 export const PlaylistName = styled.Text`
+  width: 200px;
   color: #fff;
   font-size: 18px;
   margin-bottom: 4px;

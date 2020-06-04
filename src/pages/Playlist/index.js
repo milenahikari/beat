@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
+import Player from '../../components/Player';
 
 import { Container, Title, Hr, ContainerMusic, PlaylistItem, ContentDescription, ImageMusic, PlaylistName, PlaylistOwner, PlaylistInfo, FlatPlaylist } from './styles';
 
@@ -17,29 +18,35 @@ function Playlist() {
     getPlaylist();
   }, []);
 
-  return <Container>
-    <Title>Playlist</Title>
-    <Hr />
+  return (
+    <>
+      <Container>
+        <Title>Playlist</Title>
+        <Hr />
 
-    <FlatPlaylist
-      data={myPlaylist}
-      renderItem={({ item }) => (
-        <PlaylistItem onPress={() => navigation.navigate('DetailPlaylist', {
-          id: item.id
-        })}>
-          <ImageMusic
-            source={{ uri: item.images[0].url }}
-            resizeMode="contain"
-          />
-          <ContentDescription>
-            <PlaylistName>{item.name}</PlaylistName>
-            <PlaylistOwner>By {item.owner.display_name}</PlaylistOwner>
-            <PlaylistInfo>{item.tracks.total} songs</PlaylistInfo>
-          </ContentDescription>
-        </PlaylistItem>
-      )} />
+        <FlatPlaylist
+          data={myPlaylist}
+          renderItem={({ item }) => (
+            <PlaylistItem onPress={() => navigation.navigate('DetailPlaylist', {
+              id: item.id
+            })}>
+              <ImageMusic
+                source={{ uri: item.images[0].url }}
+                resizeMode="contain"
+              />
+              <ContentDescription>
+                <PlaylistName numberOfLines={1}>{item.name}</PlaylistName>
+                <PlaylistOwner>By {item.owner.display_name}</PlaylistOwner>
+                <PlaylistInfo>{item.tracks.total} songs</PlaylistInfo>
+              </ContentDescription>
+            </PlaylistItem>
+          )} />
 
-  </Container>
+      </Container>
+      <Player />
+    </>
+  );
+
 }
 
 export default Playlist;
