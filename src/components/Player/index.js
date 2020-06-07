@@ -1,45 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { usePlayer } from '../../hooks/player';
 import Progress from '../Progress';
-import TrackPlayer, { useTrackPlayerEvents, TrackPlayerEvents } from 'react-native-track-player';
 
-import { Container, PlayerMusic, NameMusic } from './styles';
-
-const events = [
-  TrackPlayerEvents.PLAYBACK_STATE,
-  TrackPlayerEvents.PLAYBACK_ERROR
-];
+import { Container, PlayerMusic, WrapperButton, NameMusic } from './styles';
 
 const Player = () => {
-  const { playing } = usePlayer();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { play, stop, isPlaying, haveCurrentMusic } = usePlayer();
 
-  useTrackPlayerEvents(events, async event => {
-
-    //TOCANDO A MUSICA
-    if (event.state === 1 || event.state == 2) {
-      setIsPlaying(false);
-      return;
-    }
-
-    //MUSICA PAUSADA
-    if (event.state === 3) {
-      setIsPlaying(true);
-      return;
-    }
-  });
-
+  const handlePlay = useCallback(() => { play(haveCurrentMusic) }, []);
   return (
-    !!playing.title &&
+    !!haveCurrentMusic.title &&
     (
       <Container>
         <PlayerMusic>
           {isPlaying && <Progress />}
-          {isPlaying ? (<Icon name="pause-circle" color="#fff" size={40} />) : (<Icon name="play-circle" color="#fff" size={40} />)}
+          {isPlaying
+            ? (
+              <WrapperButton onPress={handlePlay}>
+                <Icon name="pause-circle" color="#fff" size={40} />
+              </WrapperButton>)
+            : (
+              <WrapperButton onPress={stop}>
+                <Icon name="play-circle" color="#fff" size={40} />
+              </WrapperButton>)}
         </PlayerMusic>
-        <NameMusic numberOfLines={1}>{playing.title}</NameMusic>
+        <NameMusic numberOfLines={1}>{haveCurrentMusic.title}</NameMusic>
       </Container>
     )
   );

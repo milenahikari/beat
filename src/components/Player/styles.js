@@ -19,3 +19,6 @@ export const NameMusic = styled.Text`
   color: #fff;
   margin-left: 20px;
 `;
+
+export const WrapperButton = styled.TouchableOpacity`
+`;

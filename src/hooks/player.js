@@ -5,7 +5,12 @@ import React, {
   useContext,
   useEffect,
 } from 'react';
-import TrackPlayer from 'react-native-track-player';
+import TrackPlayer, { useTrackPlayerEvents, TrackPlayerEvents } from 'react-native-track-player';
+
+const events = [
+  TrackPlayerEvents.PLAYBACK_STATE,
+  TrackPlayerEvents.PLAYBACK_ERROR
+];
 
 const PlayerContext = createContext();
 
@@ -18,7 +23,19 @@ export function usePlayer() {
 }
 
 export const PlayerProvider = ({ children }) => {
-  const [playing, setPlaying] = useState({});
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [haveCurrentMusic, setHaveCurrentMusic] = useState({});
+
+  useTrackPlayerEvents(events, event => {
+    //MUSICA PAUSADA
+    if (event.state !== 3) {
+      setIsPlaying(false);
+      return;
+    }
+
+    //MUSICA TOCANDO
+    setIsPlaying(true);
+  });
 
   const play = useCallback(async (music) => {
     await TrackPlayer.setupPlayer().then(async () => {
@@ -37,12 +54,16 @@ export const PlayerProvider = ({ children }) => {
       await TrackPlayer.add(music);
 
       await TrackPlayer.play();
-      setPlaying(music);
+      setHaveCurrentMusic(music);
     });
   }, [TrackPlayer]);
 
+  const stop = useCallback(async () => {
+    await TrackPlayer.pause();
+  }, [TrackPlayer]);
+
   return (
-    <PlayerContext.Provider value={{ play, playing }}>
+    <PlayerContext.Provider value={{ play, stop, isPlaying, haveCurrentMusic }}>
       {children}
     </PlayerContext.Provider>
   );

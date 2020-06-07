@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
-import Player from '../../components/Player';
 
 import { Container, Title, Hr, ContainerMusic, PlaylistItem, ContentDescription, ImageMusic, PlaylistName, PlaylistOwner, PlaylistInfo, FlatPlaylist } from './styles';
 
@@ -43,7 +42,6 @@ function Playlist() {
           )} />
 
       </Container>
-      <Player />
     </>
   );
 

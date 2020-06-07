@@ -1,40 +1,24 @@
-import React, { useCallback, useState } from 'react';
-import TrackPlayer, { useTrackPlayerEvents, TrackPlayerEvents } from 'react-native-track-player';
+import React, { useMemo, useState } from 'react';
+import TrackPlayer from 'react-native-track-player';
 import Icon from 'react-native-vector-icons/Feather';
 import { usePlayer } from '../../hooks/player';
 
 import { Container, ContentIcon, ImageMusic, DetailMusic, Title, Time } from './styles';
 
-const events = [
-  TrackPlayerEvents.PLAYBACK_STATE,
-  TrackPlayerEvents.PLAYBACK_ERROR
-];
-
 const Music = ({ data }) => {
-  const { play } = usePlayer();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const { play, stop, isPlaying } = usePlayer();
+  const [playThisMusic, setPlayThisMusic] = useState(false);
 
-  useTrackPlayerEvents(events, async event => {
+  useMemo(async () => {
     const currentTrackPlay = await TrackPlayer.getCurrentTrack();
 
-    //QUANDO A MUSICA ACABA
-    if (event.state === 1 && currentTrackPlay === data.track.id) {
-      setIsPlaying(false);
+    if (currentTrackPlay === data.track.id && isPlaying) {
+      setPlayThisMusic(true);
       return;
     }
+    setPlayThisMusic(false);
 
-    //TOCANDO A MUSICA
-    if (event.state === 2 && currentTrackPlay === data.track.id) {
-      setIsPlaying(false);
-      return;
-    }
-
-    //MUSICA PAUSADA
-    if (event.state === 3 && currentTrackPlay === data.track.id) {
-      setIsPlaying(true);
-      return;
-    }
-  });
+  }, [isPlaying, TrackPlayer, setPlayThisMusic]);
 
   async function handlePlay() {
     const music = {
@@ -48,14 +32,14 @@ const Music = ({ data }) => {
     play(music);
   }
 
-  async function handlePause() {
-    await TrackPlayer.pause();
+  function handleStop() {
+    stop();
   }
 
-  return <Container onPress={isPlaying ? handlePause : handlePlay}>
+  return <Container onPress={playThisMusic ? handleStop : handlePlay}>
     <ContentIcon>
       <ImageMusic source={{ uri: data.track.album.images[0].url }} />
-      {isPlaying
+      {playThisMusic
         ? (<Icon name="pause" size={20} color="#fff" style={{ position: 'absolute', top: 30, left: 30 }} />)
         : (<Icon name="play" size={20} color="#fff" style={{ position: 'absolute', top: 30, left: 30 }} />)
       }

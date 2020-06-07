@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import api from '../../services/api';
-import Player from '../../components/Player';
 
 import { Container, Header, PlaylistCover, DetailHeader, PlaylistName, PlaylistOwner, PlaylistInfo, ContainerDetail, Title, MusicList } from './styles';
 import Music from '../../components/Music';
@@ -52,7 +51,6 @@ const DetailPlaylist = ({ route }) => {
           }} />
         </ContainerDetail>
       </Container>
-      <Player />
     </>
   );
 }
