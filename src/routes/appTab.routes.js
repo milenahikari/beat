@@ -26,7 +26,7 @@ function AppRoutes() {
       }}
     />
     <AppTab.Screen name="SearchArtist" component={SearchArtist} options={{
-      tabBarLabel: "Buscar",
+      tabBarLabel: "Search",
       tabBarIcon: ({ color }) => (<Icon name="search" size={20} color={color} />)
     }} />
   </AppTab.Navigator>);

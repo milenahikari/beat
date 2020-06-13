@@ -14,6 +14,7 @@ const DetailPlaylist = ({ route }) => {
     async function getDetailPlaylist() {
       const response = await api.get(`/playlists/${id}`);
       const { data } = response;
+
       setDetailPlaylist(data);
       setLoading(false);
     }
@@ -44,11 +45,13 @@ const DetailPlaylist = ({ route }) => {
         <ContainerDetail>
           <Title>Minhas músicas</Title>
 
-          <MusicList data={detailPlaylist.tracks.items} renderItem={({ item }) => {
-            return (!!item.track.preview_url && (
-              <Music data={item} />
-            ))
-          }} />
+          <MusicList
+            data={detailPlaylist.tracks.items}
+            renderItem={({ item }) => {
+              return (!!item.track.preview_url && (
+                <Music track={item.track} />
+              ))
+            }} />
         </ContainerDetail>
       </Container>
     </>

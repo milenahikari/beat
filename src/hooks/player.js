@@ -17,7 +17,7 @@ const PlayerContext = createContext();
 export function usePlayer() {
   const context = useContext(PlayerContext);
   if (!context) {
-    throw Error('usePlayer precisa ser usado com um PlayerProvider');
+    throw Error('usePlayer must be used within an PlayerProvider');
   }
   return context;
 }

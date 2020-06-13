@@ -29,6 +29,11 @@ export const Title = styled.Text`
   color: #fff;
 `;
 
+export const Artist = styled.Text`
+  font-size: 14px;
+  color: #d0d0d0;
+`;
+
 export const Time = styled.Text`
   font-size: 14px;
   color: #d0d0d0;
